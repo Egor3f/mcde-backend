@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  backend:
+    build:
+      context: .
+    environment:
+      VIRTUAL_HOST: localhost,*.localhost
+      REDIS_HOST: redis
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+#      - nginx_main
+      - mcde
+      - default
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+  redis:
+    image: redis
+
+networks:
+#  nginx_main:
+#    external: true
+  mcde:
+    external: true
